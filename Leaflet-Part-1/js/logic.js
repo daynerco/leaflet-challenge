@@ -1,3 +1,4 @@
+// store the API endpoint 
 const link = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson";
 
 // GET request to the query URL
@@ -68,45 +69,3 @@ legend.onAdd = function (map) {
     return div;
 };
 
-function createMap(earthquakes) {
-
-  // Define outdoors and graymap layers
-  let streetstylemap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-    attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-    maxZoom: 20,
-    id: "outdoors-v10",
-    accessToken: API_KEY
-  });
-
-  let graymap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-    attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-    maxZoom: 20,
-    id: "light-v10",
-    accessToken: API_KEY
-  });
-
-  // Define a baseMaps object to hold our base layers
-  let baseMaps = {
-    "Street Map": streetstylemap,
-    "Gray Map": graymap
-  };
-
-  // Create overlay object to hold our overlay layer
-  let overlayMaps = {
-    Earthquakes: earthquakes
-  };
-
-  // Create our map, giving it the streetmap and earthquakes layers to display on load
-  let myMap = L.map("map", {
-    center: [
-      39.8282, -98.5795
-    ],
-    zoom: 4,
-    layers: [streetstylemap, earthquakes]
-  });
-  // Add the layer control to the map
-  L.control.layers(baseMaps, overlayMaps, {
-    collapsed: false
-  }).addTo(myMap);
-  legend.addTo(myMap);
-}

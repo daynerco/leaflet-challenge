@@ -1,2 +1,2 @@
 // Store API key
-const API_KEY = ""
+const API_KEY = "[insert API key]"
